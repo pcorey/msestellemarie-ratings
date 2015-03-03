@@ -1,23 +1,46 @@
 orion.admin.addAdminSubscription(orion.subs.subscribe('entity', 'categories'));
 
-var attributes = {
-    values: []
+var defaultSchema = {
+    createdAt: {
+        type: Date,
+        autoValue: function() {
+            if (this.isInsert) {
+                return new Date;
+            } else if (this.isUpsert) {
+                return {$setOnInsert: new Date};
+            } else {
+                this.unset();
+            }
+        }
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function() {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
+    },
+    createdBy: {
+        type: String,
+        autoform: {
+            omit: true
+        },
+        autoValue: function() {
+            if (this.isInsert) {
+                return Meteor.userId();
+            } else if (this.isUpsert) {
+                return {$setOnInsert: Meteor.userId()};
+            } else {
+                this.unset();
+            }
+        }
+    },
 };
 
-var categoryId = new ReactiveVar(null);
-
-if (Meteor.isClient) {
-    Template.adminEntitiesCreate.events({
-        'change select[data-schema-key="category"]': function(e) {
-            var category_id = $(e.currentTarget).val();
-            categoryId.set(category_id);
-            var category = orion.entities.categories.collection.findOne(category_id);
-            attributes.values = category.attributes;
-        }
-    });
-}
-
-orion.addEntity('ratings', {
+var baseSchema = _.extend(defaultSchema, {
     product: {
         type: String,
         label: 'Product',
@@ -43,111 +66,107 @@ orion.addEntity('ratings', {
         optional: false,
         label: 'Category'
     },
-    // "ratings.test": {
-    //     type: Number,
-    //     min: 1,
-    //     max: 10,
-    //     label: "Test"
+    // attributes: {
+    //     type: String,
+    //     autoform: {
+    //         options: function() {
+    //             var category = orion.entities.categories.collection.findOne(categoryId.get());
+    //             return category.attributes.map(function(value) {
+    //                 return {
+    //                     value: value,
+    //                     label: value
+    //                 }
+    //             })
+    //         }
+    //     },
+    //     optional: false,
+    //     label: 'Attributes'
     // },
-    "ratings.$.attribute": {
-        type: String,
-        label: 'Attribute',
-        optional: false,
-        autoform: {
-            options: function() {
-                var category = orion.entities.categories.collection.findOne(categoryId.get());
-                return category.attributes.map(function(value) {
-                    return {
-                        value: value,
-                        label: value
-                    }
-                })
-            }
-        }
-    },
-    "ratings.$.rating": {
-        type: Number,
-        label: 'Rating',
-        min: 1,
-        max: 10,
-        optional: false,
-    },
-    "ratings.$": {
-        type: Object,
-    },
-    ratings: {
-        type: Array,
-        label: "Ratings",
-        optional: false,
-        // autoValue: function() {
-        //     console.log('autovalue');
-        //     return {
-        //         foo: 123,
-        //         bar: undefined
-        //     };
-        // }
-        
-        // testField: {
-        //     type: String,
-        //     optional: false
-        // }
-    },
-    attributes: {
-        type: String,
-        autoform: {
-            options: function() {
-                // console.log('a');
-                // var category_id = $('select[data-schema-key="category"]').val();
-                // console.log('category_id', category_id);
-                // if (category_id) {
-                //     var category = orion.entities.categories.collection.find({
-                //         _id: category_id
-                //     }).fetch()[0];
-                //     console.log('category', category)
-                //     return category.attributes.map(function(value) {
-                //         console.log(value);
-                //         return {
-                //             value: value,
-                //             label: value
-                //         };
-                //     });
-                // }
-                // else {
-                //     return [];
-                // }
-                // return attributes.values.map(function(value) {
-                //     return {
-                //         value: value,
-                //         label: value
-                //     };
-                // });
-                var category = orion.entities.categories.collection.findOne(categoryId.get());
-                return category.attributes.map(function(value) {
-                    return {
-                        value: value,
-                        label: value
-                    }
-                })
-            }
-        },
-        optional: false,
-        label: 'Attributes'
-    },
     // image: orion.attribute('file', {
     //     label: 'Image',
     //     optional: true
     // }),
-    links: {
-        type: [String],
-        label: 'Links',
-        optional: true
-    },
-    review: orion.attribute('froala', {
-        label: 'Review',
-        optional: true
-    }),
+    // "links.$": {
+    //     type: String
+    // },
+    // links: {
+    //     type: [String],
+    //     label: 'Links',
+    //     optional: true
+    // },
+    // review: orion.attribute('froala', {
+    //     label: 'Review',
+    //     optional: true
+    // }),
+});
 
-}, {
+var categoryId = new ReactiveVar(null);
+
+function updateRatingsSchema(attributes) {
+    var ratingsSchema = attributes.reduce(function(schema, attribute) {
+        schema['ratings.' + attribute] = {
+            type: Number,
+            label: attribute,
+            min: 1,
+            max: 10,
+            optional: true
+        }
+        return schema;
+    }, {
+        ratings: {
+            type: Object,
+            label: 'Ratings',
+            optional: true
+        }
+    });
+    schema = _.extend(_.clone(baseSchema), ratingsSchema);
+    orion.entities.ratings.schema = schema;
+    orion.entities.ratings.collection.attachSchema(new SimpleSchema(schema), {
+        replace: true
+    });
+}
+
+if (Meteor.isClient) {
+    Tracker.autorun(function() {
+        var category_id = categoryId.get();
+        if (!category_id) {
+            return;
+        }
+        var category = orion.entities.categories.collection.findOne(category_id);
+        Meteor.call('updateRatingsSchema', category.attributes);
+        updateRatingsSchema(category.attributes);
+        AutoForm.invalidateFormContext('createEntityForm');
+        AutoForm.invalidateFormContext('updateEntityForm');
+    })
+    Template.adminEntitiesCreate.events({
+        'change select[data-schema-key="category"]': function(e) {
+            categoryId.set($(e.currentTarget).val());
+        }
+    });
+    Template.adminEntitiesCreate.rendered = function() {
+        categoryId.set($('select[data-schema-key="category"]').val());
+    };
+    Template.adminEntitiesUpdate.events({
+        'change select[data-schema-key="category"]': function(e) {
+            categoryId.set($(e.currentTarget).val());
+        }
+    });
+    Template.adminEntitiesUpdate.rendered = function() {
+        categoryId.set($('select[data-schema-key="category"]').val());
+    };
+}
+
+if (Meteor.isServer) {
+    Meteor.methods({
+        updateRatingsSchema: function(attributes) {
+            updateRatingsSchema(attributes);
+        }
+    })
+}
+
+
+
+orion.addEntity('ratings', _.extend(_.clone(baseSchema), {}), {
     icon: 'bookmark',
     sidebarName: 'Ratings',
     pluralName: 'Ratings',
@@ -156,6 +175,10 @@ orion.addEntity('ratings', {
         {
             data: 'product',
             title: 'Product'
+        },
+        {
+            data: 'brand',
+            title: 'Brand'
         }
     ]
 });
