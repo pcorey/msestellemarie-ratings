@@ -65,40 +65,27 @@ var baseSchema = _.extend(defaultSchema, {
         },
         optional: false,
         label: 'Category'
-    },
-    // attributes: {
-    //     type: String,
-    //     autoform: {
-    //         options: function() {
-    //             var category = orion.entities.categories.collection.findOne(categoryId.get());
-    //             return category.attributes.map(function(value) {
-    //                 return {
-    //                     value: value,
-    //                     label: value
-    //                 }
-    //             })
-    //         }
-    //     },
-    //     optional: false,
-    //     label: 'Attributes'
-    // },
-    // image: orion.attribute('file', {
-    //     label: 'Image',
-    //     optional: true
-    // }),
-    // "links.$": {
-    //     type: String
-    // },
-    // links: {
-    //     type: [String],
-    //     label: 'Links',
-    //     optional: true
-    // },
-    // review: orion.attribute('froala', {
-    //     label: 'Review',
-    //     optional: true
-    // }),
+    }
 });
+
+var schemaEndcap = {
+    image: orion.attribute('file', {
+        label: 'Image',
+        optional: true
+    }),
+    review: orion.attribute('froala', {
+        label: 'Review',
+        optional: true
+    }),
+    "links.$": {
+        type: String
+    },
+    links: {
+        type: [String],
+        label: 'Links',
+        optional: true
+    }
+}
 
 var categoryId = new ReactiveVar(null);
 
@@ -119,7 +106,7 @@ function updateRatingsSchema(attributes) {
             optional: true
         }
     });
-    schema = _.extend(_.clone(baseSchema), ratingsSchema);
+    schema = _.extend(_.clone(baseSchema), _.extend(ratingsSchema, schemaEndcap));
     orion.entities.ratings.schema = schema;
     orion.entities.ratings.collection.attachSchema(new SimpleSchema(schema), {
         replace: true
@@ -203,6 +190,10 @@ orion.addEntity('categories', {
         {
             data: 'category',
             title: 'Category'
+        },
+        {
+            data: 'attributes',
+            title: 'Attributes'
         }
     ]
 });
