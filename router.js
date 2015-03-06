@@ -1,11 +1,25 @@
-Router.route('/', function () {
-    this.render('main');
+Router.route('/', {
+    name: 'main',
+    layoutTemplate: 'main',
+    loadingTemplate: 'loading',
+    waitOn: function() {
+        return [
+            orion.subs.subscribe('entity', 'reviews'),
+            orion.subs.subscribe('entity', 'categories'),
+            orion.subs.subscribe('entity', 'brands'),
+        ];
+    },
+    data: function() {
+        var reviews = orion.entities.reviews.collection.find({});
+        var brands = orion.entities.brands.collection.find({});
+        var categories = orion.entities.categories.collection.find({});
+        return {
+            reviews: reviews,
+            brands: brands,
+            categories: categories
+        };
+    }
 });
-
-// Router.route('/:_id', function () {
-//     var id = this.params._id;
-//     this.render('review', {data: {id: id}});
-// });
 
 Router.route('/:slug', {
     name: 'review',
@@ -19,13 +33,14 @@ Router.route('/:slug', {
         ];
     },
     data: function() {
-        var review = orion.entities.reviews.collection.findOne({slug: this.params.slug});
-        console.log('review', review);
+        var review = orion.entities.reviews.collection.findOne({
+            slug: this.params.slug
+        });
         return {
             review: review
         };
     }
-})
+});
 
 // Router.route('/items/:_id', function () {
 //     var item = Items.findOne({_id: this.params._id});

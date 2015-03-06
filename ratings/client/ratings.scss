@@ -1,0 +1,44 @@
+.ratings {
+    margin: 50px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > * {
+        vertical-align: middle;
+    }
+}
+
+.ratings .overall {
+    margin: 0;
+    p {
+        margin: 0;
+    }
+    h1 {
+        margin: 0;
+    }
+}
+
+.ratings .attributes {
+    text-align: left;
+    margin: 0 1em 0 50px;
+    p {
+        margin: 0;
+    }
+}
+
+.ratings .rating {
+    width: 300px;
+    p {
+        margin: 0;
+        text-align: left;
+        vertical-align: middle;
+    }
+    span {
+        display: inline-block;
+        vertical-align: middle;
+        background-color: rgba(0,0,0,0.25);
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        height: 20px;
+    }
+}

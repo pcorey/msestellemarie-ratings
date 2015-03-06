@@ -223,6 +223,11 @@ orion.addEntity('brands', {
         type: String,
         label: 'Brand',
         optional: false
+    },
+    slug: {
+        type: String,
+        label: 'Slug',
+        optional: false
     }
 }, {
     icon: 'bookmark',
