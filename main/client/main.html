@@ -1,9 +1,12 @@
 <template name="main">
-    <div class="main">
-        {{#each reviews}}
-            {{#with review=this}}
-                {{> preview}}
-            {{/with}}
-        {{/each}}
-    </div>
+    {{#wrapper}}
+        <div class="main">
+            {{>search}}
+            {{#each reviews}}
+                {{#with review=this}}
+                    {{> preview}}
+                {{/with}}
+            {{/each}}
+        </div>
+    {{/wrapper}}
 </template>

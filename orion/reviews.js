@@ -120,7 +120,8 @@ function updateReviewsSchema(attributes) {
             label: attribute,
             min: 1,
             max: 10,
-            optional: true
+            optional: true,
+            defaultValue: 1
         }
         return schema;
     }, {
@@ -175,8 +176,6 @@ if (Meteor.isServer) {
     })
 }
 
-
-
 orion.addEntity('reviews', _.extend(_.clone(baseSchema), {}), {
     icon: 'bookmark',
     sidebarName: 'Reviews',
@@ -190,54 +189,16 @@ orion.addEntity('reviews', _.extend(_.clone(baseSchema), {}), {
     ]
 });
 
-orion.addEntity('categories', {
-    category: {
-        type: String,
-        label: 'Category',
-        optional: false
-    },
-    attributes: {
-        type: [String],
-        label: 'Attributes',
-        optional: true
+function setAverage(userId, doc, fieldNames, modifier, options) {
+    modifier.$set = modifier.$set || {};
+    var ratings = doc.reviews;
+    var overall = 0;
+    for (var key in ratings) {
+            overall += ratings[key];
     }
-}, {
-    icon: 'bookmark',
-    sidebarName: 'Categories',
-    pluralName: 'Categories',
-    singularName: 'Category',
-    tableColumns: [
-        {
-            data: 'category',
-            title: 'Category'
-        },
-        {
-            data: 'attributes',
-            title: 'Attributes'
-        }
-    ]
-});
+    overall /= Object.keys(ratings).length;
+    modifier.$set.average = overall;
+}
 
-orion.addEntity('brands', {
-    brand: {
-        type: String,
-        label: 'Brand',
-        optional: false
-    },
-    slug: {
-        type: String,
-        label: 'Slug',
-        optional: false
-    }
-}, {
-    icon: 'bookmark',
-    sidebarName: 'Brands',
-    pluralName: 'Brands',
-    singularName: 'Brand',
-    tableColumns: [
-        {
-            data: 'brand',
-            title: 'Brand'
-        }
-    ]
-});
+orion.entities.reviews.collection.before.insert(setAverage);
+orion.entities.reviews.collection.before.update(setAverage);

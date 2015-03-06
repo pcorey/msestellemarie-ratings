@@ -1,0 +1,32 @@
+.search {
+    margin: 50px 0;
+    display: flex;
+    .searchbar {
+        flex: 1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 0;
+    }
+    .brand {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 0;
+    }
+    .category {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    input, select {
+        font-family: 'Raleway';
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 1;
+        padding: 0.5em;
+
+        border: 1px solid #cbcbcb;
+        border-radius: 3px;
+    }
+}

@@ -1,14 +1,16 @@
 <template name="review">
-    <div class="review">
-        <div class="background" style="background-image: url({{review.image.url}})"></div>
-        <div class="wrapper">
-            <h1 class="title">{{review.product}}</h1>
-            <p class="brand">By <a href="/brand/{{brand.slug}}">{{brand.brand}}</a></p>
-            {{> ratings}}
-            <p>{{{review.review}}}</p>
-            {{#each review.links}}
-                <p><a href="{{url}}">{{label}}</a></p>
-            {{/each}}
+    {{#wrapper}}
+        <div class="review">
+            <div class="background" style="background-image: url({{review.image.url}})"></div>
+            <div class="wrapper">
+                <h1 class="title">{{review.product}}</h1>
+                <p class="brand">By <a href="/brand/{{brand.slug}}">{{brand.brand}}</a></p>
+                {{> ratings}}
+                <p>{{{review.review}}}</p>
+                {{#each review.links}}
+                    <p><a href="{{url}}">{{label}}</a></p>
+                {{/each}}
+            </div>
         </div>
-    </div>
+    {{/wrapper}}
 </template>
