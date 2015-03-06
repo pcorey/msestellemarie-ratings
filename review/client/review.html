@@ -1,0 +1,31 @@
+<template name="review">
+    <div class="review">
+        <div class="background"></div>
+        <div class="wrapper">
+            <h1>{{review.product}}</h1>
+            <div class="ratings">
+                <div class="overall">
+                    <p>Overall:</p>
+                    <h1>{{overall}}</h1>
+                </div>
+                <div class="attributes">
+                    {{#each attributes}}
+                        <p>{{this}}:</p>
+                    {{/each}}
+                </div>
+                <div class="rating">
+                    {{#each attributes}}
+                        <p>
+                            <span style="width: {{width this ../review}}%;"></span>
+                        </p>
+                    {{/each}}
+                </div>
+            </div>
+            <p>{{{review.review}}}</p>
+            {{#each review.links}}
+                <p><a href="{{url}}">{{label}}</a></p>
+            {{/each}}
+        </div>
+    </div>
+
+</template>

@@ -1,4 +1,5 @@
 orion.admin.addAdminSubscription(orion.subs.subscribe('entity', 'categories'));
+orion.admin.addAdminSubscription(orion.subs.subscribe('entity', 'brands'));
 
 var defaultSchema = {
     createdAt: {
@@ -48,6 +49,16 @@ var baseSchema = _.extend(defaultSchema, {
     },
     brand: {
         type: String,
+        autoform: {
+            options: function() {
+                return orion.entities.brands.collection.find().fetch().map(function(value) {
+                    return {
+                        value: value._id,
+                        label: value.brand
+                    };
+                });
+            }
+        },
         label: 'Brand',
         optional: true
     },
@@ -77,21 +88,34 @@ var schemaEndcap = {
         label: 'Review',
         optional: true
     }),
+    "links.$.url": {
+        type: String,
+        label: "URL"
+    },
+    "links.$.label": {
+        type: String,
+        label: "Label"
+    },
     "links.$": {
-        type: String
+        type: Object
     },
     links: {
-        type: [String],
+        type: [Object],
         label: 'Links',
         optional: true
+    },
+    slug: {
+        type: String,
+        label: 'Slug',
+        optional: false
     }
 }
 
 var categoryId = new ReactiveVar(null);
 
-function updateRatingsSchema(attributes) {
-    var ratingsSchema = attributes.reduce(function(schema, attribute) {
-        schema['ratings.' + attribute] = {
+function updateReviewsSchema(attributes) {
+    var reviewsSchema = attributes.reduce(function(schema, attribute) {
+        schema['reviews.' + attribute] = {
             type: Number,
             label: attribute,
             min: 1,
@@ -100,15 +124,15 @@ function updateRatingsSchema(attributes) {
         }
         return schema;
     }, {
-        ratings: {
+        reviews: {
             type: Object,
-            label: 'Ratings',
+            label: 'Reviews',
             optional: true
         }
     });
-    schema = _.extend(_.clone(baseSchema), _.extend(ratingsSchema, schemaEndcap));
-    orion.entities.ratings.schema = schema;
-    orion.entities.ratings.collection.attachSchema(new SimpleSchema(schema), {
+    schema = _.extend(_.clone(baseSchema), _.extend(reviewsSchema, schemaEndcap));
+    orion.entities.reviews.schema = schema;
+    orion.entities.reviews.collection.attachSchema(new SimpleSchema(schema), {
         replace: true
     });
 }
@@ -120,8 +144,8 @@ if (Meteor.isClient) {
             return;
         }
         var category = orion.entities.categories.collection.findOne(category_id);
-        Meteor.call('updateRatingsSchema', category.attributes);
-        updateRatingsSchema(category.attributes);
+        Meteor.call('updateReviewsSchema', category.attributes);
+        updateReviewsSchema(category.attributes);
         AutoForm.invalidateFormContext('createEntityForm');
         AutoForm.invalidateFormContext('updateEntityForm');
     })
@@ -145,27 +169,23 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
     Meteor.methods({
-        updateRatingsSchema: function(attributes) {
-            updateRatingsSchema(attributes);
+        updateReviewsSchema: function(attributes) {
+            updateReviewsSchema(attributes);
         }
     })
 }
 
 
 
-orion.addEntity('ratings', _.extend(_.clone(baseSchema), {}), {
+orion.addEntity('reviews', _.extend(_.clone(baseSchema), {}), {
     icon: 'bookmark',
-    sidebarName: 'Ratings',
-    pluralName: 'Ratings',
-    singularName: 'Rating',
+    sidebarName: 'Reviews',
+    pluralName: 'Reviews',
+    singularName: 'Review',
     tableColumns: [
         {
             data: 'product',
             title: 'Product'
-        },
-        {
-            data: 'brand',
-            title: 'Brand'
         }
     ]
 });
@@ -194,6 +214,25 @@ orion.addEntity('categories', {
         {
             data: 'attributes',
             title: 'Attributes'
+        }
+    ]
+});
+
+orion.addEntity('brands', {
+    brand: {
+        type: String,
+        label: 'Brand',
+        optional: false
+    }
+}, {
+    icon: 'bookmark',
+    sidebarName: 'Brands',
+    pluralName: 'Brands',
+    singularName: 'Brand',
+    tableColumns: [
+        {
+            data: 'brand',
+            title: 'Brand'
         }
     ]
 });
