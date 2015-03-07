@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Raleway:400);
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Raleway:400|Playfair+Display+SC:900);
 
 html {
     height: 100%;
@@ -9,6 +9,23 @@ body {
     padding: 0;
     height: 100%;
 }
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    rgba(0,0,0,0.125);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    rgba(0,0,0,0.125);
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    rgba(0,0,0,0.125);
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    rgba(0,0,0,0.125);
+}
+
 
 h1, h2 {
     font-weight: 900;

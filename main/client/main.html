@@ -1,7 +1,8 @@
 <template name="main">
     {{#wrapper}}
         <div class="main">
-            <!-- {{>search}} -->
+            <!-- {{>header}} -->
+            {{>search}}
             {{#each reviews}}
                 {{#with review=this}}
                     {{> preview}}
