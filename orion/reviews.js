@@ -189,7 +189,7 @@ orion.addEntity('reviews', _.extend(_.clone(baseSchema), {}), {
     ]
 });
 
-function setAverage(userId, doc, fieldNames, modifier, options) {
+function setAverageOnUpdate(userId, doc, fieldNames, modifier, options) {
     modifier.$set = modifier.$set || {};
     var ratings = doc.reviews;
     var overall = 0;
@@ -200,5 +200,15 @@ function setAverage(userId, doc, fieldNames, modifier, options) {
     modifier.$set.average = overall;
 }
 
-orion.entities.reviews.collection.before.insert(setAverage);
-orion.entities.reviews.collection.before.update(setAverage);
+function setAverageOnInsert(userId, doc) {
+    var ratings = doc.reviews;
+    var overall = 0;
+    for (var key in ratings) {
+            overall += ratings[key];
+    }
+    overall /= Object.keys(ratings).length;
+    doc.average = overall;
+}
+
+orion.entities.reviews.collection.before.insert(setAverageOnInsert);
+orion.entities.reviews.collection.before.update(setAverageOnUpdate);

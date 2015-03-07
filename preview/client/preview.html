@@ -1,13 +1,14 @@
 <template name="preview">
     <div class="preview">
+        <div class="background" style="background-image: url({{review.image.url}})"></div>
         <div class="product">
             <p>&nbsp;</p>
             <h1 class="title"><a href="/{{review.slug}}">{{review.product}}</a></h1>
-            <p class="brand">By <a href="/brand/{{brand.slug}}">{{brand.brand}}</a></p>
+            <p class="brand"><a href="#">{{category.category}}</a> by <a href="/brand/{{brand.slug}}">{{brand.brand}}</a></p>
         </div>
         <div class="overall">
             <p>Overall:</p>
-            <h1>8.5</h1>
+            <h1>{{overall}}</h1>
             <p>&nbsp;</p>
         </div>
         <!-- <div class="wrapper">
