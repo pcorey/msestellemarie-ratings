@@ -4,31 +4,24 @@
             <p>&nbsp;</p>
             <input class="search" type="text" placeholder="Search...">
             <!-- <h1 class="title"><a href="/{{review.slug}}">{{review.product}}</a></h1> -->
-            <p class="brand">
+            <p>
                 <select class="category">
-                    <option value="1"><u>Category 1</u></option>
-                    <option value="2">Category 2</option>
+                    <option value="">All Categories</option>
+                    {{#each categories}}
+                        <option value="{{_id}}">{{category}}</option>
+                    {{/each}}
                 </select> by
                 <select class="brand">
-                    <option value="1">Brand 1</option>
-                    <option value="2">Brand 2</option>
+                    <option value="">All Brands</option>
+                    {{#each brands}}
+                        <option value="{{_id}}">{{brand}}</option>
+                    {{/each}}
                 </select></p>
         </div>
         <div class="overall">
             <p>&nbsp;</p>
-            <h1><i class="fa fa-chevron-down"></i></h1>
+            <h1><i class="sort fa {{#if asc}}fa-chevron-up{{else}}fa-chevron-down{{/if}}"></i></h1>
             <p>&nbsp;</p>
         </div>
     </div>
-    <!-- <div class="search">
-        <input type="text" class="searchbar">
-        <select class="brand">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-        </select>
-        <select class="category">
-            <option value="1">Category 1</option>
-            <option value="2">Category 2</option>
-        </select>
-    </div> -->
 </template>

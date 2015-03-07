@@ -1,16 +1,32 @@
+Session.set('averageSort', -1);
+Session.set('category', null);
+Session.set('brand', null);
+
 Router.route('/', {
     name: 'main',
     layoutTemplate: 'main',
     loadingTemplate: 'loading',
     waitOn: function() {
         return [
-            orion.subs.subscribe('entity', 'reviews'),
+            orion.subs.subscribe('reviews', {}, {sort: {average: -1}}),
             orion.subs.subscribe('entity', 'categories'),
             orion.subs.subscribe('entity', 'brands'),
         ];
     },
     data: function() {
-        var reviews = orion.entities.reviews.collection.find({});
+        var find = {};
+        var options = {sort: {average: Session.get('averageSort')}};
+        var category = Session.get('category');
+        var brand = Session.get('brand');
+        console.log('category brand', category, brand);
+        if (category) {
+            find.category = category;
+        }
+        if (brand) {
+            find.brand = brand;
+        }
+
+        var reviews = orion.entities.reviews.collection.find(find, options);
         var brands = orion.entities.brands.collection.find({});
         var categories = orion.entities.categories.collection.find({});
         return {
@@ -41,20 +57,3 @@ Router.route('/:slug', {
         };
     }
 });
-
-// Router.route('/items/:_id', function () {
-//     var item = Items.findOne({_id: this.params._id});
-//     this.render('ShowItem', {data: item});
-// });
-
-// Router.route('/files/:filename', function () {
-//     this.response.end('hi from the server\n');
-// }, {where: 'server'});
-
-// Router.route('/restful', {where: 'server'})
-// .get(function () {
-//     this.response.end('get request\n');
-// })
-// .post(function () {
-//     this.response.end('post request\n');
-// });

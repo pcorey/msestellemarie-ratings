@@ -21,3 +21,9 @@ orion.addEntity('brands', {
         }
     ]
 });
+
+if (Meteor.isServer) {
+    Meteor.publish('brands', function(find, options) {
+        return orion.entities.brands.collection.find(find, options);
+    });
+}

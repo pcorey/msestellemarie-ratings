@@ -212,3 +212,9 @@ function setAverageOnInsert(userId, doc) {
 
 orion.entities.reviews.collection.before.insert(setAverageOnInsert);
 orion.entities.reviews.collection.before.update(setAverageOnUpdate);
+
+if (Meteor.isServer) {
+    Meteor.publish('reviews', function(find, options) {
+        return orion.entities.reviews.collection.find(find, options);
+    });
+}

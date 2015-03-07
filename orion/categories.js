@@ -25,3 +25,9 @@ orion.addEntity('categories', {
         }
     ]
 });
+
+if (Meteor.isServer) {
+    Meteor.publish('categories', function(find, options) {
+        return orion.entities.categories.collection.find(find, options);
+    });
+}
