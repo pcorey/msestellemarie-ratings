@@ -10,9 +10,9 @@ orionjs:styles
 orionjs:froala-editor
 reactive-var
 orionjs:filesystem
-orionjs:s3
 orionjs:file-attribute
 natestrauser:select2
 aldeed:autoform-select2
 fourseven:scss
 matb33:collection-hooks
+pcorey:orion-slingshot
