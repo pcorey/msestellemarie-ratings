@@ -1,5 +1,5 @@
-orion.admin.addAdminSubscription(orion.subs.subscribe('entity', 'categories'));
-orion.admin.addAdminSubscription(orion.subs.subscribe('entity', 'brands'));
+orion.admin.addAdminSubscription('entity', 'categories');
+orion.admin.addAdminSubscription('entity', 'brands');
 
 var defaultSchema = {
     createdAt: {
@@ -115,7 +115,7 @@ var categoryId = new ReactiveVar(null);
 
 function updateReviewsSchema(attributes) {
     var reviewsSchema = attributes.reduce(function(schema, attribute) {
-        schema['reviews.' + attribute] = {
+        schema['ratings.' + attribute] = {
             type: Number,
             label: attribute,
             min: 1,
@@ -125,7 +125,7 @@ function updateReviewsSchema(attributes) {
         }
         return schema;
     }, {
-        reviews: {
+        ratings: {
             type: Object,
             label: 'Reviews',
             optional: true
