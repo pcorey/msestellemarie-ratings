@@ -191,7 +191,7 @@ orion.addEntity('reviews', _.extend(_.clone(baseSchema), {}), {
 
 function setAverageOnUpdate(userId, doc, fieldNames, modifier, options) {
     modifier.$set = modifier.$set || {};
-    var ratings = doc.reviews;
+    var ratings = doc.ratings;
     var overall = 0;
     for (var key in ratings) {
             overall += ratings[key];
@@ -201,7 +201,7 @@ function setAverageOnUpdate(userId, doc, fieldNames, modifier, options) {
 }
 
 function setAverageOnInsert(userId, doc) {
-    var ratings = doc.reviews;
+    var ratings = doc.ratings;
     var overall = 0;
     for (var key in ratings) {
             overall += ratings[key];

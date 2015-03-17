@@ -5,7 +5,7 @@
 # but you can also edit it by hand.
 
 meteor-platform
-orionjs:core
+orionjs:core@0.5.5
 orionjs:styles
 orionjs:froala-editor
 reactive-var
@@ -16,4 +16,4 @@ aldeed:autoform-select2
 fourseven:scss
 matb33:collection-hooks
 pcorey:orion-slingshot
-orionjs:bootstrap
+orionjs:bootstrap@0.0.3

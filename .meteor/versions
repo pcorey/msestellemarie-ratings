@@ -20,7 +20,9 @@ coffeescript@1.0.5
 dburles:collection-helpers@1.0.2
 ddp@1.0.14
 deps@1.0.6
+edgee:slingshot@0.4.1
 ejson@1.0.5
+eluck:aws-sdk@2.0.23_1
 email@1.0.5
 fastclick@1.0.2
 follower-livedata@1.0.3
@@ -64,8 +66,8 @@ natestrauser:select2@3.5.1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
 ordered-dict@1.0.2
-orionjs:bootstrap@0.0.1
-orionjs:core@0.5.4
+orionjs:bootstrap@0.0.3
+orionjs:core@0.5.5
 orionjs:file-attribute@0.0.3
 orionjs:filesystem@0.0.15
 orionjs:froala-editor@0.1.1
