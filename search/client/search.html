@@ -8,13 +8,13 @@
                 <select class="category">
                     <option value="">All Categories</option>
                     {{#each categories}}
-                        <option value="{{_id}}">{{category}}</option>
+                        <option selected={{selected 'category'}} value="{{_id}}">{{category}}</option>
                     {{/each}}
                 </select> by
                 <select class="brand">
                     <option value="">All Brands</option>
                     {{#each brands}}
-                        <option value="{{_id}}">{{brand}}</option>
+                        <option selected={{selected 'brand'}} value="{{_id}}">{{brand}}</option>
                     {{/each}}
                 </select></p>
         </div>

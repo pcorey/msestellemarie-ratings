@@ -4,7 +4,7 @@
             <div class="background" style="background-image: url({{review.image.url}})"></div>
             <div class="wrapper">
                 <h1 class="title">{{review.product}}</h1>
-                <p class="brand"><a href="#">{{category.category}}</a> by <a href="/brand/{{brand.slug}}">{{brand.brand}}</a></p>
+                <p class="classification"><a href="#" class="category">{{category.category}}</a> by <a href="#" class="brand">{{brand.brand}}</a></p>
                 {{> ratings}}
                 <p>{{{review.review}}}</p>
                 {{#each review.links}}

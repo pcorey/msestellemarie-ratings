@@ -9,3 +9,14 @@ Template.preview.helpers({
         return this.review.average.toFixed(1);
     }
 });
+
+Template.preview.events({
+    'click .brand': function(e) {
+        Session.set('brand', this.review.brand);
+        return false;
+    },
+    'click .category': function(e) {
+        Session.set('category', this.review.category);
+        return false;
+    }
+});

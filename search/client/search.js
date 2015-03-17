@@ -1,6 +1,9 @@
 Template.search.helpers({
     asc: function() {
         return Session.get('averageSort') == 1;
+    },
+    selected: function(field) {
+        return Session.get(field) == this._id;
     }
 });
 
