@@ -9,6 +9,6 @@ Template.ratings.helpers({
         return this.review.average.toFixed(1);
     },
     width: function(attribute, review) {
-        return 100*(review.reviews[attribute]/10);
+        return 100*(review.ratings[attribute]/10);
     }
 })
