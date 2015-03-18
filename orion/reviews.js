@@ -218,3 +218,17 @@ if (Meteor.isServer) {
         return orion.entities.reviews.collection.find(find, options);
     });
 }
+
+
+
+
+
+if (Meteor.isClient) {
+    AutoForm.hooks({
+        updateEntityForm: {
+            onError: function(formType, error) {
+                console.log('autoform onerror', formType, error);
+            }
+        }
+    });
+}
