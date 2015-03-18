@@ -80,6 +80,12 @@ var baseSchema = _.extend(defaultSchema, {
 });
 
 var schemaEndcap = {
+    "image.fileId": {
+        type: String
+    },
+    "image.url": {
+        type: String
+    },
     image: orion.attribute('file', {
         label: 'Image',
         optional: true
@@ -219,16 +225,4 @@ if (Meteor.isServer) {
     });
 }
 
-
-
-
-
-if (Meteor.isClient) {
-    AutoForm.hooks({
-        updateEntityForm: {
-            onError: function(formType, error) {
-                console.log('autoform onerror', formType, error);
-            }
-        }
-    });
-}
+SimpleSchema.debug = true;
