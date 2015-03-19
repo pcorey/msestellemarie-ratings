@@ -137,7 +137,7 @@ function updateReviewsSchema(attributes) {
             optional: true
         }
     });
-    schema = _.extend(_.clone(baseSchema), _.extend(reviewsSchema, schemaEndcap));
+    schema = _.extend(_.clone(baseSchema), _.extend(reviewsSchema, _.clone(schemaEndcap)));
     orion.entities.reviews.schema = schema;
     orion.entities.reviews.collection.attachSchema(new SimpleSchema(schema), {
         replace: true
