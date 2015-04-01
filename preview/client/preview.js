@@ -18,5 +18,9 @@ Template.preview.events({
     'click .category': function(e) {
         Session.set('category', this.review.category);
         return false;
+    },
+    'click .title a': function() {
+        console.log('click');
+        return false;
     }
 });
