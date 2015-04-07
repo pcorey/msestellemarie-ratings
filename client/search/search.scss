@@ -5,6 +5,14 @@
     text-align: center;
     position: relative;
     padding: 0 50px;
+
+    .fa-search {
+        float: left;
+    }
+
+    .overall {
+        margin-top: 0;
+    }
 }
 
 .search .sort {
@@ -21,7 +29,7 @@
     font-family: 'Playfair Display';
     font-size: 35px;
     text-align: left;
-    padding: 0;
+    padding: 0 5px;
 }
 
 .search select {
@@ -35,7 +43,7 @@
 
 .search .product {
     z-index: 2;
-    margin: 25px 0;
+    margin: 0 0 25px 0;
     text-align: left;
     flex: 1;
     p {
@@ -62,7 +70,7 @@
 
 .search .overall {
     z-index: 2;
-    margin: 25px 0 25px 50px;
+    margin: 0 0 25px 50px;
     p {
         width: 100%;
         margin: 0;

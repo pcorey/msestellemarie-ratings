@@ -1,9 +1,10 @@
 <template name="search">
     <div class="search">
         <div class="product">
-            <p>&nbsp;</p>
-            <input class="search" type="text" placeholder="Search...">
-            <!-- <h1 class="title"><a href="/{{review.slug}}">{{review.product}}</a></h1> -->
+            <div class="searchbox">
+                <!-- <i class="fa fa-search"></i> -->
+                <input class="searchbox" type="text" placeholder="Search...">
+            </div>
             <p>
                 <select class="category">
                     <option value="">All Categories</option>
@@ -19,8 +20,7 @@
                 </select></p>
         </div>
         <div class="overall">
-            <p>&nbsp;</p>
-            <h1><i class="sort fa {{#if asc}}fa-chevron-up{{else}}fa-chevron-down{{/if}}"></i></h1>
+            <h1><i class="sort fa {{#if asc}}fa-sort-amount-asc{{else}}fa-sort-amount-desc{{/if}}"></i></h1>
             <p>&nbsp;</p>
         </div>
     </div>
