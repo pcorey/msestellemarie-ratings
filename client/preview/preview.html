@@ -14,11 +14,6 @@
             </div>
         </div>
         <div class="flex">
-            <!-- <div class="attributes">
-                {{#each attributes}}
-                    <p>{{this}}</p>
-                {{/each}}
-            </div> -->
             <div class="links">
                 {{#if hasLinks}}
                     <p class="more">Read More:</p>
@@ -32,8 +27,10 @@
             <div class="ratings">
                 {{#each attributes}}
                     <p class="bar" style="width: {{width ..}}">
-                        <span class="text">{{this}}</span>
-                        <span class="number">{{widthText ..}}</span>
+                        <span class="text-wrapper">
+                            <span class="number">{{widthText ..}}</span>
+                            <span class="text">{{this}}</span>
+                        </span>
                     </p>
                 {{/each}}
             </div>
