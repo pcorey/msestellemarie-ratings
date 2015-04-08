@@ -37,3 +37,7 @@ Router.route('/', {
         };
     }
 });
+
+Router.configure({
+    progressSpinner: false
+});
