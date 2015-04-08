@@ -4,7 +4,7 @@
     align-items: flex-start;
     text-align: center;
     position: relative;
-    padding: 0 50px;
+    margin: 25px 50px;
 
     .fa-search {
         float: left;
@@ -43,7 +43,6 @@
 
 .search .product {
     z-index: 2;
-    margin: 0 0 25px 0;
     text-align: left;
     flex: 1;
     p {
@@ -70,7 +69,6 @@
 
 .search .overall {
     z-index: 2;
-    margin: 0 0 25px 50px;
     p {
         width: 100%;
         margin: 0;
