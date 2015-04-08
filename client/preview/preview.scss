@@ -23,10 +23,13 @@
 }
 
 .preview .bar {
+    transition: 0.25s all ease-in-out;
+    width: 0%;
     height: 30px;
-    background-color: #eee;
+    //background-color: #eee;
+    background: linear-gradient(to right, #cbcbcb 0%,#ffffff 100%);
     margin: 15px 0 15px auto;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.25);
     .text, .number {
         padding: 0 1ex;
         font-weight:bold;
@@ -90,7 +93,7 @@
 .preview .links {
     margin-top: 1em;
     text-align: left;
-    .more {
+    .links-text {
         font-weight: bold;
     }
     ul {
@@ -98,5 +101,15 @@
     }
     p {
         margin: 0;
+    }
+}
+
+.preview .more {
+    display: none;
+    //overflow-y: hidden;
+    //transition: 0.25s all ease-in-out;
+    &.expanded {
+        display: flex;
+        //max-height: 500px;
     }
 }

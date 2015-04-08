@@ -1,7 +1,7 @@
 <template name="preview">
     <div class="preview">
         <div class="background" style="background-image: url({{review.image.url}})"></div>
-        <div class="flex">
+        <div class="flex product-header">
             <div class="product">
                 <p>&nbsp;</p>
                 <h1 class="title"><a href="#">{{review.product}}</a></h1>
@@ -13,10 +13,10 @@
                 <p>&nbsp;</p>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex more {{#if expanded}}expanded{{/if}}">
             <div class="links">
                 {{#if hasLinks}}
-                    <p class="more">Read More:</p>
+                    <p class="links-text">Read More:</p>
                     <ul>
                     {{#each review.links}}
                         <li><p><a href="{{url}}">{{label}}</a></p></li>

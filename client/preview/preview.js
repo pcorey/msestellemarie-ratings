@@ -1,3 +1,7 @@
+Template.preview.created = function() {
+    this.expanded = new ReactiveVar(false);
+}
+
 Template.preview.helpers({
     brand: function() {
         return orion.entities.brands.collection.findOne({_id: this.review.brand});
@@ -19,6 +23,10 @@ Template.preview.helpers({
     },
     hasLinks: function() {
         return this.review.links && this.review.links.length;
+    },
+    expanded: function() {
+        console.log(Template.instance());
+        return Template.instance().expanded.get();
     }
 });
 
@@ -31,8 +39,8 @@ Template.preview.events({
         Session.set('category', this.review.category);
         return false;
     },
-    'click .title a': function() {
-        console.log('click');
+    'click .product-header': function(e, t) {
+        t.expanded.set(!t.expanded.get());
         return false;
     }
 });
