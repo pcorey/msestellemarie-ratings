@@ -9,7 +9,6 @@ Template.review.helpers({
 
 Template.review.events({
     'click .brand': function(e) {
-        console.log(this);
         Session.set('brand', null);
         return false;
     },

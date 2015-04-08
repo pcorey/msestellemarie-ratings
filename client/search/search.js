@@ -23,5 +23,9 @@ Template.search.events({
     'change .brand': function() {
         console.log('brand change', $('.brand').val());
         Session.set('brand', $('.brand').val());
-    }
+    },
+    'keyup .searchbox': _.debounce(function(e) {
+        Session.set('limit', Session.get('limitChunk'));
+        Session.set('search', e.target.value);
+    }, 300)
 });
