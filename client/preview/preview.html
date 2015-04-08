@@ -1,15 +1,42 @@
 <template name="preview">
     <div class="preview">
         <div class="background" style="background-image: url({{review.image.url}})"></div>
-        <div class="product">
-            <p>&nbsp;</p>
-            <h1 class="title"><a href="#">{{review.product}}</a></h1>
-            <p class="classification"><a class="category" href="#">{{category.category}}</a> by <a class="brand" href="#">{{brand.brand}}</a></p>
+        <div class="flex">
+            <div class="product">
+                <p>&nbsp;</p>
+                <h1 class="title"><a href="#">{{review.product}}</a></h1>
+                <p class="classification"><a class="category" href="#">{{category.category}}</a> by <a class="brand" href="#">{{brand.brand}}</a></p>
+            </div>
+            <div class="overall">
+                <p>Overall:</p>
+                <h1>{{overall}}</h1>
+                <p>&nbsp;</p>
+            </div>
         </div>
-        <div class="overall">
-            <p>Overall:</p>
-            <h1>{{overall}}</h1>
-            <p>&nbsp;</p>
+        <div class="flex">
+            <!-- <div class="attributes">
+                {{#each attributes}}
+                    <p>{{this}}</p>
+                {{/each}}
+            </div> -->
+            <div class="links">
+                {{#if hasLinks}}
+                    <p class="more">Read More:</p>
+                    <ul>
+                    {{#each review.links}}
+                        <li><p><a href="{{url}}">{{label}}</a></p></li>
+                    {{/each}}
+                    </ul>
+                {{/if}}
+            </div>
+            <div class="ratings">
+                {{#each attributes}}
+                    <p class="bar" style="width: {{width ..}}">
+                        <span class="text">{{this}}</span>
+                        <span class="number">{{widthText ..}}</span>
+                    </p>
+                {{/each}}
+            </div>
         </div>
     </div>
 </template>
