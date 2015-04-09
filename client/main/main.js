@@ -1,5 +1,7 @@
 Template.main.helpers({
-
+    hasReviews: function() {
+        return this.reviews && this.reviews.length;
+    }
 });
 
 $(window).scroll(function() {
