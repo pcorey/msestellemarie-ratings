@@ -25,7 +25,6 @@ Template.preview.helpers({
         return this.review.links && this.review.links.length;
     },
     expanded: function() {
-        console.log(Template.instance());
         return Template.instance().expanded.get();
     }
 });
