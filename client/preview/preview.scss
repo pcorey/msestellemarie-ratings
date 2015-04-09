@@ -33,6 +33,10 @@
     }
 }
 
+.preview .open {
+    cursor: pointer;
+}
+
 .preview .bar {
     transition: 0.25s all ease-in-out;
     width: 0%;

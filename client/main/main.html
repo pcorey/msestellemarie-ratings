@@ -1,18 +1,11 @@
 <template name="main">
-    {{#wrapper}}
-        <div class="main">
-            {{>header}}
-            {{>search}}
-            {{#if hasReviews}}
-                {{#each reviews}}
-                    {{#with review=this}}
-                        {{> preview}}
-                    {{/with}}
-                {{/each}}
-            {{else}}
-                <p class="no-results">It looks like there are no reviews matching that criteria.</p>
-            {{/if}}
-            {{>more}}
-        </div>
-    {{/wrapper}}
+    {{#if hasReviews}}
+        {{#each reviews}}
+            {{#with review=this}}
+                {{> preview}}
+            {{/with}}
+        {{/each}}
+    {{else}}
+        <p class="no-results">It looks like there are no reviews matching that criteria.</p>
+    {{/if}}
 </template>

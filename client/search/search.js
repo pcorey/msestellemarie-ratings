@@ -17,11 +17,9 @@ Template.search.events({
         }
     },
     'change .category': function() {
-        console.log('category change', $('.category').val());
         Session.set('category', $('.category').val());
     },
     'change .brand': function() {
-        console.log('brand change', $('.brand').val());
         Session.set('brand', $('.brand').val());
     },
     'keyup .searchbox': _.debounce(function(e) {

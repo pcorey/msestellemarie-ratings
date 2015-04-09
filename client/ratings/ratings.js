@@ -1,6 +1,5 @@
 Template.ratings.helpers({
     attributes: function() {
-        console.log(this);
         return orion.entities.categories.collection.findOne({
             _id: this.review.category
         }).attributes;
