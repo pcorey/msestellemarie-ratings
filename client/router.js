@@ -8,7 +8,6 @@ Session.set('search', null);
 Router.map(function () {
     this.route('main', {
         path: '/',
-        loadingTemplate: null,
         layoutTemplate: 'layout',
         waitOn: function() {
             return [
@@ -49,5 +48,6 @@ Router.map(function () {
 
 Router.configure({
     //notFoundTemplate: 'notFound',
+    loadingTemplate: 'loading',
     progressSpinner: false
 });
