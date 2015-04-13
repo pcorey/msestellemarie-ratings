@@ -10,7 +10,7 @@
             <div class="overall">
                 <p>Overall:</p>
                 <h1>{{overall}}</h1>
-                <p>&nbsp;<!-- <i class="fa fa-{{#if expanded}}minus{{else}}plus{{/if}}-square-o open"></i> --></p>
+                <p class="controls"><i class="expand fa fa-chevron-{{#if expanded}}up{{else}}down{{/if}}"></i><i class="fa fa-{{#if linked}}chain-broken unlink{{else}}link link{{/if}}"></i><!-- <i class="fa fa-{{#if expanded}}minus{{else}}plus{{/if}}-square-o open"></i> --></p>
             </div>
         </div>
         <div class="flex more {{#if expanded}}expanded{{/if}}">

@@ -26,6 +26,9 @@ Template.preview.helpers({
     },
     expanded: function() {
         return Template.instance().expanded.get();
+    },
+    linked: function() {
+        return Session.get('ids').indexOf(this.review._id) > -1;
     }
 });
 
@@ -38,8 +41,25 @@ Template.preview.events({
         Session.set('category', this.review.category);
         return false;
     },
-    'click .product-header': function(e, t) {
+    'click .title': function(e, t) {
         t.expanded.set(!t.expanded.get());
         return false;
+    },
+    'click .expand': function(e, t) {
+        t.expanded.set(!t.expanded.get());
+        return false;
+    },
+    'click .link': function() {
+        var ids = Session.get('ids');
+        if (ids.indexOf(this.review._id) == -1) {
+            ids.push(this.review._id);
+            Session.set('ids', ids);
+        }
+    },
+    'click .unlink': function() {
+        var ids = Session.get('ids');
+        var idx = ids.indexOf(this.review._id)
+        ids.splice(idx, 1);
+        Session.set('ids', ids);
     }
 });
